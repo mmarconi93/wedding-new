@@ -1,10 +1,10 @@
 import Title from "@/components/Title";
 
 const items = [
-  { time: "5:00 pm", title: "Welcome Drink", detail: "Have a drink before things get real fancy."},
-  { time: "5:30 pm", title: "Ceremony", detail: "We’ll make it official!"},
-  { time: "6:00 pm", title: "Cocktail Reception", detail: "Enjoy hors d’oeuvres and the open bar."},
-  { time: "7:00 pm", title: "Dinner & Dancing", detail: "Eat, toast, dance."},
+  { time: "5:00 pm", title: "Ceremony", detail: "We’ll make it official!" },
+  { time: "6:00 pm", title: "Cocktail Hour", detail: "Enjoy hors d’oeuvres and the open bar." },
+  { time: "7:00 pm", title: "Reception", detail: "Dinner is served, followed by toasts and more drinks." },
+  { time: "7:30 pm – 11:00 pm", title: "Dancing & Mingling", detail: "Hit the dance floor or relax with friends until the party ends." },
 ];
 
 export default function Page() {
