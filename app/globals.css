@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0F2A22; /* deep forest */
+  --fg: #D4B483; /* gold */
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  @apply bg-forest text-gold font-body;
+}
+
+.nav-link { @apply uppercase tracking-widest text-xs hover:opacity-80 transition; }
+.section { @apply max-w-5xl mx-auto px-6 md:px-8 py-16 md:py-24; }
+.rule { height: 1px; background: rgba(212,180,131,.55); }
+.btn { @apply border border-gold px-4 py-2 rounded-full hover:bg-gold hover:text-forest transition; }
+.card { @apply bg-[#0c221b] border border-[#2b4138] rounded-2xl p-6; }
