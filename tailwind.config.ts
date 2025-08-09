@@ -39,7 +39,7 @@ const config: Config = {
       },
       animation: {
         "flap-open": "flapOpen 2.6s ease-in-out forwards",
-        "card-slide": "cardSlide 3.0s ease-out forwards 1.4s",
+        "card-rise": "cardRise 3.0s ease-in-out forwards 1.0s", 
         "overlay-out": "overlayOut 7.0s ease forwards",
       },
     },
