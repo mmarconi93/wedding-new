@@ -35,9 +35,9 @@ const config: Config = {
         }
       },
       animation: {
-        "flap-open": "flapOpen 1.6s ease-in-out forwards",
-        "card-slide": "cardSlide 0.6s ease-out forwards 1.4s",
-        "overlay-out": "overlayOut 3.2s ease forwards",
+        "flap-open": "flapOpen 2.6s ease-in-out forwards",
+        "card-slide": "cardSlide 1.0s ease-out forwards 1.4s",
+        "overlay-out": "overlayOut 7.0s ease forwards",
       },
     },
   },

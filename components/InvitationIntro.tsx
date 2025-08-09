@@ -9,7 +9,7 @@ export default function InvitationIntro() {
     const seen = typeof window !== "undefined" && localStorage.getItem("introSeen");
     if (!seen) {
       setShow(true);
-      const totalMs = 3200; // length of animations
+      const totalMs = 7000; // length of animations
       const t = setTimeout(() => {
         setShow(false);
         localStorage.setItem("introSeen", "1");
