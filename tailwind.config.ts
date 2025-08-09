@@ -26,7 +26,8 @@ const config: Config = {
         },
         cardSlide: {
           "0%":   { opacity: "0", transform: "translateY(24px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" }
+          "60%":  { opacity: "1", transform: "translateY(-8px)" },
+          "100%": { opacity: "1", transform: "translateY(-16px)" }
         },
         overlayOut: {
           "0%": { opacity: "1" },
