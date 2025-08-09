@@ -9,15 +9,36 @@ const config: Config = {
       colors: {
         forest: "#0F2A22",
         gold: "#D4B483",
-        goldmuted: "#BEA67A"
+        goldmuted: "#BEA67A",
       },
       fontFamily: {
         display: ["var(--font-cormorant)"],
-        body: ["var(--font-inter)"]
+        body: ["var(--font-inter)"],
       },
-      letterSpacing: {
-        extra: ".35em"
-      }
+      letterSpacing: { extra: ".35em" },
+
+      // ⬇️ keyframes & animations belong inside theme.extend
+      keyframes: {
+        flapOpen: {
+          "0%":   { transform: "rotateX(0deg)" },
+          "55%":  { transform: "rotateX(-95deg)" },
+          "100%": { transform: "rotateX(-95deg)" }
+        },
+        cardSlide: {
+          "0%":   { opacity: "0", transform: "translateY(24px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" }
+        },
+        overlayOut: {
+          "0%": { opacity: "1" },
+          "75%": { opacity: "1" },
+          "100%": { opacity: "0", visibility: "hidden" }
+        }
+      },
+      animation: {
+        "flap-open": "flapOpen 1.6s ease-in-out forwards",
+        "card-slide": "cardSlide 0.6s ease-out forwards 1.4s",
+        "overlay-out": "overlayOut 3.2s ease forwards",
+      },
     },
   },
   plugins: [],
