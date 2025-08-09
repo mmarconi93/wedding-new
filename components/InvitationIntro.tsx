@@ -41,12 +41,14 @@ export default function InvitationIntro() {
         <div className="absolute inset-0 rounded-xl bg-[#0c221b] border border-[#2b4138]" />
 
         {/* Card inside */}
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-4 w-[85%] h-[70%] bg-white text-[#0f2a22] rounded-lg shadow-xl grid place-items-center opacity-0 animate-card-slide">
-          <div className="text-center px-4">
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-4 w-[85%] h-[70%]">
+        <div className="w-full h-full bg-white text-[#0f2a22] rounded-lg shadow-xl grid place-items-center opacity-0 animate-card-slide">
+            <div className="text-center px-4">
             <div className="text-sm tracking-[0.35em] uppercase">You’re invited</div>
             <div className="font-display text-2xl mt-1">Malaquias &amp; Chantel</div>
             <div className="text-xs mt-1 tracking-widest">September 25, 2026</div>
-          </div>
+            </div>
+        </div>
         </div>
 
         {/* Front triangles (envelope edges) */}
