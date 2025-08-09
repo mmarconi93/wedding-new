@@ -21,23 +21,25 @@ const config: Config = {
       keyframes: {
         flapOpen: {
           "0%":   { transform: "rotateX(0deg)" },
-          "55%":  { transform: "rotateX(-95deg)" },
-          "100%": { transform: "rotateX(-95deg)" }
+          "55%":  { transform: "rotateX(-100deg)" }, // a touch more dramatic
+          "100%": { transform: "rotateX(-100deg)" }
         },
-        cardSlide: {
-          "0%":   { opacity: "0", transform: "translateY(24px)" },
-          "60%":  { opacity: "1", transform: "translateY(-8px)" },
-          "100%": { opacity: "1", transform: "translateY(-16px)" }
+        // The card rises completely out of the envelope.
+        // Percentages for translateY are relative to the CARD height.
+        cardRise: {
+          "0%":   { opacity: "0", transform: "translateY(12%)" },
+          "35%":  { opacity: "1", transform: "translateY(0%)" },
+          "100%": { opacity: "1", transform: "translateY(-115%)" } // fully out
         },
         overlayOut: {
           "0%": { opacity: "1" },
-          "75%": { opacity: "1" },
+          "88%": { opacity: "1" }, // hold most of the time
           "100%": { opacity: "0", visibility: "hidden" }
         }
       },
       animation: {
         "flap-open": "flapOpen 2.6s ease-in-out forwards",
-        "card-slide": "cardSlide 1.0s ease-out forwards 1.4s",
+        "card-slide": "cardSlide 3.0s ease-out forwards 1.4s",
         "overlay-out": "overlayOut 7.0s ease forwards",
       },
     },

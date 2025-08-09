@@ -2,17 +2,16 @@
 import { useEffect, useState } from "react";
 
 export default function InvitationIntro() {
-  const [show, setShow] = useState(true); // start visible
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
-    const totalMs = 7000; // length of animations
-    const t = setTimeout(() => setShow(false), totalMs);
+    const t = setTimeout(() => setShow(false), 7000); // keep in sync with overlay-out
     return () => clearTimeout(t);
   }, []);
 
   // Respect reduced motion
   useEffect(() => {
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
       setShow(false);
     }
   }, []);
@@ -27,12 +26,19 @@ export default function InvitationIntro() {
     >
       {/* Envelope */}
       <div className="relative w-80 h-56 sm:w-[28rem] sm:h-44">
-        {/* Back/body */}
-        <div className="absolute inset-0 rounded-xl bg-[#0c221b] border border-[#2b4138]" />
+        {/* Back/body — GOLD */}
+        <div
+          className="absolute inset-0 rounded-xl border"
+          style={{
+            backgroundColor: "#D4B483",       // gold
+            borderColor: "#C6A474"            // slightly darker border
+          }}
+        />
 
-        {/* Card inside */}
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-4 w-[85%] h-[70%] z-20">
-          <div className="w-full h-full bg-white text-[#0f2a22] rounded-lg shadow-xl grid place-items-center opacity-0 animate-card-slide">
+        {/* CARD WRAPPER (centered) */}
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-4 w-[85%] h-[70%] z-30">
+          {/* Card that actually animates */}
+          <div className="w-full h-full bg-white text-[#0f2a22] rounded-lg shadow-2xl grid place-items-center opacity-0 animate-card-rise">
             <div className="text-center px-4">
               <div className="text-sm tracking-[0.35em] uppercase">You’re invited</div>
               <div className="font-display text-2xl mt-1">Malaquias &amp; Chantel</div>
@@ -41,20 +47,42 @@ export default function InvitationIntro() {
           </div>
         </div>
 
-        {/* Front triangles */}
+        {/* Front triangles / flap base — GOLD shades for depth */}
         <div className="absolute inset-0 rounded-xl overflow-hidden z-10">
-          <div className="absolute left-0 bottom-0 w-1/2 h-1/2 bg-[#123428]"
-               style={{ clipPath: "polygon(0 100%, 100% 100%, 0 0)" }} />
-          <div className="absolute right-0 bottom-0 w-1/2 h-1/2 bg-[#123428]"
-               style={{ clipPath: "polygon(0 100%, 100% 100%, 100% 0)" }} />
-          <div className="absolute left-0 right-0 bottom-0 h-1/2 bg-[#113125]"
-               style={{ clipPath: "polygon(0 100%, 50% 0, 100% 100%)" }} />
+          {/* left triangle */}
+          <div
+            className="absolute left-0 bottom-0 w-1/2 h-1/2"
+            style={{
+              backgroundColor: "#C9A873",   // darker gold
+              clipPath: "polygon(0 100%, 100% 100%, 0 0)"
+            }}
+          />
+          {/* right triangle */}
+          <div
+            className="absolute right-0 bottom-0 w-1/2 h-1/2"
+            style={{
+              backgroundColor: "#C9A873",
+              clipPath: "polygon(0 100%, 100% 100%, 100% 0)"
+            }}
+          />
+          {/* bottom triangle */}
+          <div
+            className="absolute left-0 right-0 bottom-0 h-1/2"
+            style={{
+              backgroundColor: "#B99763",   // even darker gold
+              clipPath: "polygon(0 100%, 50% 0, 100% 100%)"
+            }}
+          />
         </div>
 
-        {/* Top flap */}
+        {/* Top flap — GOLD, rotates open */}
         <div
-          className="absolute left-0 right-0 top-0 h-1/2 origin-top bg-[#153c2f] rounded-t-xl animate-flap-open"
-          style={{ clipPath: "polygon(0 0, 100% 0, 50% 100%)", transformStyle: "preserve-3d" }}
+          className="absolute left-0 right-0 top-0 h-1/2 origin-top rounded-t-xl animate-flap-open z-20"
+          style={{
+            backgroundColor: "#C9A873",
+            clipPath: "polygon(0 0, 100% 0, 50% 100%)",
+            transformStyle: "preserve-3d"
+          }}
         />
       </div>
     </div>
