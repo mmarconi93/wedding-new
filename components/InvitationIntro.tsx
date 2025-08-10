@@ -1,53 +1,40 @@
 'use client';
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useId } from "react";
 
-/** One generated petal: size/position/animation randomized */
+/* ----- Realistic petal using SVG with a soft ivory gradient ----- */
 function Petal({ i }: { i: number }) {
-  // generate once on mount, not every render
+  const gid = useId().replace(/:/g, ""); // unique gradient id
+
+  // Randomized once
   const props = useMemo(() => {
-    const rand = (min: number, max: number) => Math.random() * (max - min) + min;
+    const r = (a: number, b: number) => Math.random() * (b - a) + a;
+    const leftPct = r(0, 100);                 // horizontal column
+    const xStart  = `${r(-1, 1)}vw`;
+    const xDrift  = `${r(-14, 14)}vw`;
+    const xEnd    = `${r(-22, 22)}vw`;
 
-    // horizontal starting column & drifts
-    const leftPct   = rand(0, 100);                   // 0–100% across the screen
-    const xStart    = `${rand(-1, 1)}vw`;             // tiny offset
-    const xDrift    = `${rand(-12, 12)}vw`;           // mid sway
-    const xEnd      = `${rand(-18, 18)}vw`;           // final drift
+    const rotStart = `${r(-20, 20)}deg`;
+    const rotMid   = `${r(80, 180)}deg`;
+    const rotEnd   = `${r(200, 360)}deg`;
 
-    // rotation
-    const rotStart  = `${rand(-25, 25)}deg`;
-    const rotMid    = `${rand(60, 160)}deg`;
-    const rotEnd    = `${rand(180, 360)}deg`;
+    const w = r(26, 46);                       // bigger petals
+    const h = w * r(0.9, 1.3);                 // varied aspect
 
-    // size (larger petals)
-    const w         = rand(18, 28); // px
-    const h         = w * 0.72;     // teardrop aspect
-
-    // timing
-    const dur       = `${rand(3.2, 4.6)}s`;
-    const delay     = `${rand(0, 1.2)}s`;
+    const dur   = `${r(3.4, 4.8)}s`;
+    const delay = `${r(0, 1.3)}s`;
 
     return { leftPct, xStart, xDrift, xEnd, rotStart, rotMid, rotEnd, w, h, dur, delay };
   }, [i]);
 
   return (
-    <span
-      className="pointer-events-none absolute top-[-12vh] block animate-petal"
+    <svg
+      className="pointer-events-none absolute top-[-14vh] animate-petal"
       style={{
         left: `${props.leftPct}%`,
         width: `${props.w}px`,
         height: `${props.h}px`,
-
-        // white petal with a soft highlight + slight translucency
-        background:
-          "radial-gradient(120% 100% at 60% 30%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 55%, rgba(255,255,255,0.85) 100%)",
-        boxShadow: "0 4px 10px rgba(0,0,0,.18)",
-
-        // teardrop/rose-petal silhouette
-        borderRadius: "60% 60% 50% 50% / 70% 70% 40% 40%",
-        transform: "rotate(18deg)",
-
-        // per-petal animation variables
-        // @ts-ignore - custom props
+        filter: "drop-shadow(0 4px 8px rgba(0,0,0,.18))",
+        // per-petal CSS variables (used by keyframes)
         ["--xStart" as any]: props.xStart,
         ["--xDrift" as any]: props.xDrift,
         ["--xEnd" as any]: props.xEnd,
@@ -55,29 +42,42 @@ function Petal({ i }: { i: number }) {
         ["--rotMid" as any]: props.rotMid,
         ["--rotEnd" as any]: props.rotEnd,
         ["--dur" as any]: props.dur,
-        ["--delay" as any]: props.delay,
+        ["--delay" as any]: props.delay
       } as React.CSSProperties}
-    />
+      viewBox="0 0 100 120"
+    >
+      <defs>
+        {/* soft ivory gradient, brighter highlight near top-left */}
+        <radialGradient id={`g${gid}`} cx="45%" cy="30%" r="80%">
+          <stop offset="0%"  stopColor="#FFFFFF" stopOpacity="0.98" />
+          <stop offset="45%" stopColor="#FFF9F1" stopOpacity="0.95" />
+          <stop offset="100%" stopColor="#F4EFE6" stopOpacity="0.9" />
+        </radialGradient>
+      </defs>
+      {/* rose-petal-ish shape: rounded with a small pinch at bottom */}
+      <path
+        d="M50 6 C72 8, 92 26, 88 53 C85 76, 66 100, 50 114 C34 100, 15 76, 12 53 C8 26, 28 8, 50 6 Z"
+        fill={`url(#g${gid})`}
+      />
+    </svg>
   );
 }
 
 function PetalField() {
-  // 48 petals for full-screen coverage (drop to 32 on older phones if needed)
-  const COUNT = 48;
+  const COUNT = 64; // full-screen coverage; lower if mobile perf dips
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden z-20">
-      {Array.from({ length: COUNT }).map((_, i) => (
-        <Petal key={i} i={i} />
-      ))}
+      {Array.from({ length: COUNT }).map((_, i) => <Petal key={i} i={i} />)}
     </div>
   );
 }
 
+/* ---------------- Envelope intro ---------------- */
 export default function InvitationIntro() {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
-    const t = setTimeout(() => setShow(false), 7000);
+    const t = setTimeout(() => setShow(false), 7000); // keep in sync with overlay-out
     return () => clearTimeout(t);
   }, []);
 
@@ -93,17 +93,19 @@ export default function InvitationIntro() {
       style={{ perspective: "1200px" }}
       aria-label="Opening invitation"
     >
-      {/* 1) White rose petals across full screen */}
+      {/* 1) Petals */}
       <PetalField />
 
-      {/* 2) Gold envelope + rising card */}
+      {/* 2) Envelope + card (alignment tightened) */}
       <div className="relative w-80 h-56 sm:w-[28rem] sm:h-44 z-30">
-        {/* Envelope body */}
-        <div className="absolute inset-0 rounded-xl" style={{ backgroundColor: "#D4B483" }} />
-        <div className="absolute inset-0 rounded-xl ring-1" style={{ boxShadow: "inset 0 8px 22px rgba(0,0,0,.18)", borderColor: "#C6A474" }} />
+        {/* Envelope body (gold) */}
+        <div
+          className="absolute inset-0 rounded-xl"
+          style={{ backgroundColor: "#D4B483" }}
+        />
 
-        {/* Card (rises fully out) */}
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-3 w-[85%] h-[70%] z-40">
+        {/* Card — rises fully out */}
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-3 w-[86%] h-[68%] z-40">
           <div className="w-full h-full bg-white text-[#0f2a22] rounded-lg shadow-2xl grid place-items-center opacity-0 animate-card-rise">
             <div className="text-center px-4">
               <div className="text-sm tracking-[0.35em] uppercase">You’re invited to</div>
@@ -113,7 +115,7 @@ export default function InvitationIntro() {
           </div>
         </div>
 
-        {/* Front triangles (depth shading) */}
+        {/* Front triangles (kept below card) */}
         <div className="absolute inset-0 rounded-xl overflow-hidden z-35">
           <div className="absolute left-0 bottom-0 w-1/2 h-1/2"
                style={{ backgroundColor: "#C9A873", clipPath: "polygon(0 100%, 100% 100%, 0 0)" }} />
@@ -123,7 +125,7 @@ export default function InvitationIntro() {
                style={{ backgroundColor: "#B99763", clipPath: "polygon(0 100%, 50% 0, 100% 100%)" }} />
         </div>
 
-        {/* Top flap */}
+        {/* Top flap (gold) */}
         <div
           className="absolute left-0 right-0 top-0 h-1/2 origin-top rounded-t-xl animate-flap-open z-50"
           style={{
