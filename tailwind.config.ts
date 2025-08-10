@@ -35,12 +35,20 @@ const config: Config = {
           "0%": { opacity: "1" },
           "88%": { opacity: "1" }, // hold most of the time
           "100%": { opacity: "0", visibility: "hidden" }
+        },
+        petal: {
+          "0%":   { transform: "translateY(-20vh) rotate(0deg)", opacity: "0" },
+          "10%":  { opacity: "0.9" },
+          "70%":  { opacity: "0.9" },
+          "100%": { transform: "translateY(75vh) rotate(160deg)", opacity: "0" }
         }
       },
       animation: {
         "flap-open": "flapOpen 2.6s ease-in-out forwards",
         "card-rise": "cardRise 3.0s ease-in-out forwards 1.0s", 
         "overlay-out": "overlayOut 7.0s ease forwards",
+        "petal-fast": "petal 2.8s ease-in forwards",
+        "petal-slow": "petal 3.6s ease-in forwards",
       },
     },
   },
