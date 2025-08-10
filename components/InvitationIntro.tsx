@@ -8,7 +8,7 @@ function Petal({ i }: { i: number }) {
   // Randomized once
   const props = useMemo(() => {
     const r = (a: number, b: number) => Math.random() * (b - a) + a;
-    const leftPct = r(0, 100);                 // horizontal column
+    const leftPct = r(0, 100);
     const xStart  = `${r(-1, 1)}vw`;
     const xDrift  = `${r(-14, 14)}vw`;
     const xEnd    = `${r(-22, 22)}vw`;
@@ -17,8 +17,8 @@ function Petal({ i }: { i: number }) {
     const rotMid   = `${r(80, 180)}deg`;
     const rotEnd   = `${r(200, 360)}deg`;
 
-    const w = r(26, 46);                       // bigger petals
-    const h = w * r(0.9, 1.3);                 // varied aspect
+    const w = r(26, 46);
+    const h = w * r(0.9, 1.3);
 
     const dur   = `${r(3.4, 4.8)}s`;
     const delay = `${r(0, 1.3)}s`;
@@ -34,7 +34,6 @@ function Petal({ i }: { i: number }) {
         width: `${props.w}px`,
         height: `${props.h}px`,
         filter: "drop-shadow(0 4px 8px rgba(0,0,0,.18))",
-        // per-petal CSS variables (used by keyframes)
         ["--xStart" as any]: props.xStart,
         ["--xDrift" as any]: props.xDrift,
         ["--xEnd" as any]: props.xEnd,
@@ -47,14 +46,12 @@ function Petal({ i }: { i: number }) {
       viewBox="0 0 100 120"
     >
       <defs>
-        {/* soft ivory gradient, brighter highlight near top-left */}
         <radialGradient id={`g${gid}`} cx="45%" cy="30%" r="80%">
           <stop offset="0%"  stopColor="#FFFFFF" stopOpacity="0.98" />
           <stop offset="45%" stopColor="#FFF9F1" stopOpacity="0.95" />
           <stop offset="100%" stopColor="#F4EFE6" stopOpacity="0.9" />
         </radialGradient>
       </defs>
-      {/* rose-petal-ish shape: rounded with a small pinch at bottom */}
       <path
         d="M50 6 C72 8, 92 26, 88 53 C85 76, 66 100, 50 114 C34 100, 15 76, 12 53 C8 26, 28 8, 50 6 Z"
         fill={`url(#g${gid})`}
@@ -96,16 +93,16 @@ export default function InvitationIntro() {
       {/* 1) Petals */}
       <PetalField />
 
-      {/* 2) Envelope + card (alignment tightened) */}
+      {/* 2) Gold envelope + rising card (simplified & correctly layered) */}
       <div className="relative w-80 h-56 sm:w-[28rem] sm:h-44 z-30">
-        {/* Envelope body (gold) */}
+        {/* Back body (behind everything) */}
         <div
-          className="absolute inset-0 rounded-xl"
+          className="absolute inset-0 rounded-xl z-10"
           style={{ backgroundColor: "#D4B483" }}
         />
 
-        {/* Card — rises fully out */}
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-3 w-[86%] h-[68%] z-40">
+        {/* Card — rises fully out; sits ABOVE the envelope face */}
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-3 w-[86%] h-[68%] z-30">
           <div className="w-full h-full bg-white text-[#0f2a22] rounded-lg shadow-2xl grid place-items-center opacity-0 animate-card-rise">
             <div className="text-center px-4">
               <div className="text-sm tracking-[0.35em] uppercase">You’re invited to</div>
@@ -115,19 +112,25 @@ export default function InvitationIntro() {
           </div>
         </div>
 
-        {/* Front triangles (kept below card) */}
-        <div className="absolute inset-0 rounded-xl overflow-hidden z-35">
-          <div className="absolute left-0 bottom-0 w-1/2 h-1/2"
-               style={{ backgroundColor: "#C9A873", clipPath: "polygon(0 100%, 100% 100%, 0 0)" }} />
-          <div className="absolute right-0 bottom-0 w-1/2 h-1/2"
-               style={{ backgroundColor: "#C9A873", clipPath: "polygon(0 100%, 100% 100%, 100% 0)" }} />
-          <div className="absolute left-0 right-0 bottom-0 h-1/2"
-               style={{ backgroundColor: "#B99763", clipPath: "polygon(0 100%, 50% 0, 100% 100%)" }} />
+        {/* Front face (LEFT/RIGHT/BOTTOM) kept BELOW the card; no overflow clipping */}
+        <div className="absolute inset-0 rounded-xl z-20 pointer-events-none">
+          <div
+            className="absolute left-0 bottom-0 w-1/2 h-1/2"
+            style={{ backgroundColor: "#C9A873", clipPath: "polygon(0 100%, 100% 100%, 0 0)" }}
+          />
+          <div
+            className="absolute right-0 bottom-0 w-1/2 h-1/2"
+            style={{ backgroundColor: "#C9A873", clipPath: "polygon(0 100%, 100% 100%, 100% 0)" }}
+          />
+          <div
+            className="absolute left-0 right-0 bottom-0 h-1/2"
+            style={{ backgroundColor: "#B99763", clipPath: "polygon(0 100%, 50% 0, 100% 100%)" }}
+          />
         </div>
 
-        {/* Top flap (gold) */}
+        {/* Top flap — the only piece above the card */}
         <div
-          className="absolute left-0 right-0 top-0 h-1/2 origin-top rounded-t-xl animate-flap-open z-50"
+          className="absolute left-0 right-0 top-0 h-1/2 origin-top rounded-t-xl animate-flap-open z-40"
           style={{
             backgroundColor: "#C9A873",
             clipPath: "polygon(0 0, 100% 0, 50% 100%)",
