@@ -21,8 +21,8 @@ const config: Config = {
       keyframes: {
         flapOpen: {
           "0%":   { transform: "rotateX(0deg)" },
-          "55%":  { transform: "rotateX(-100deg)" },
-          "100%": { transform: "rotateX(-100deg)" }
+          "55%":  { transform: "rotateX(-120deg)" },
+          "100%": { transform: "rotateX(-135deg)" }
         },
         // Card rises completely above the envelope
         cardRise: {

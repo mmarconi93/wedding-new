@@ -128,15 +128,17 @@ export default function InvitationIntro() {
           />
         </div>
 
-        {/* Top flap — the only piece above the card */}
+        {/* Top flap — now UNDER the card so it can't overlay it */}
         <div
-          className="absolute left-0 right-0 top-0 h-1/2 origin-top rounded-t-xl animate-flap-open z-40"
-          style={{
+        className="absolute left-0 right-0 top-0 h-1/2 origin-top rounded-t-xl animate-flap-open z-10"
+        style={{
             backgroundColor: "#C9A873",
             clipPath: "polygon(0 0, 100% 0, 50% 100%)",
             transformStyle: "preserve-3d",
-            boxShadow: "0 10px 24px rgba(0,0,0,.18)"
-          }}
+            backfaceVisibility: "hidden",   // ⬅️ important
+            // remove or soften the heavy shadow to avoid a “lip”
+            boxShadow: "0 6px 12px rgba(0,0,0,.12)"
+        }}
         />
       </div>
     </div>
