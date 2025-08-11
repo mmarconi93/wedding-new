@@ -125,8 +125,8 @@ export default function Page() {
             </button>
             {err && <p className="text-sm text-red-300">{err}</p>}
 
-            <p className="text-2xl font-bold text-[#FFD700] text-center uppercase">
-              UNFORTUNATELY NO CHILDREN ALLOWED. ONLY ADULTS 18+ YEARS OF AGE OR OLDER.
+            <p className="text-2xl font-bold text-[#C2A85D] text-center uppercase">
+              UNFORTUNATELY NO CHILDREN ALLOWED. ADULT ONLY WEDDING.
             </p> 
           </form>
         ) : (
