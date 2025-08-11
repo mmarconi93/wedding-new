@@ -124,10 +124,14 @@ export default function Page() {
               {loading ? "Submitting..." : "Submit"}
             </button>
             {err && <p className="text-sm text-red-300">{err}</p>}
-
-            <p className="text-2xl font-bold text-[#C2A85D] text-center uppercase">
-              UNFORTUNATELY NO CHILDREN ALLOWED. ADULT ONLY WEDDING.
-            </p> 
+            {/* Kids policy notice */}
+            <div className="mt-2 text-center">
+              <h3 className="text-xl md:text-2xl font-semibold text-gold">Are kids welcomed?</h3>
+              <p className="mt-2 opacity-90">
+                As much as we love your little ones, we will not be including them in the ceremony or reception.
+                This is an adult only wedding. Please reach out if you have any questions!
+              </p>
+            </div>
           </form>
         ) : (
           <div className="max-w-lg mx-auto card text-center">
