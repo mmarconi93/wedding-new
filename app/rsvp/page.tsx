@@ -124,7 +124,10 @@ export default function Page() {
               {loading ? "Submitting..." : "Submit"}
             </button>
             {err && <p className="text-sm text-red-300">{err}</p>}
-            <p className="text-xs opacity-70">You can resubmit if plans change—we’ll use the latest entry.</p>
+
+            <p className="text-2xl font-bold text-[#FFD700] text-center uppercase">
+              UNFORTUNATELY NO CHILDREN ALLOWED. ONLY ADULTS 18+ YEARS OF AGE OR OLDER.
+            </p> 
           </form>
         ) : (
           <div className="max-w-lg mx-auto card text-center">
