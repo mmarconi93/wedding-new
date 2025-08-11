@@ -116,7 +116,7 @@ export default function Page() {
 
             <textarea
               name="notes" rows={4}
-              placeholder="Dietary restrictions, song requests, etc."
+              placeholder="Dietary restrictions, disability accomodations, etc."
               className="bg-transparent border border-[#2b4138] rounded px-3 py-2"
             />
 

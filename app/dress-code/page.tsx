@@ -7,8 +7,7 @@ export default function Page() {
         <Title>Dress Code</Title>
         <div className="card leading-relaxed">
           <p>
-            <strong>Black Tie.</strong> This is a formal evening event — tuxedos for gentlemen, and floor-length gowns for ladies. 
-            Elegant cocktail dresses are acceptable, but full-length attire is preferred.
+            <strong>Black Tie Event:</strong> This is a formal evening event — tuxedos for gentlemen, and floor-length gowns for ladies. 
           </p>
         </div>
       </section>
